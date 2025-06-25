@@ -41,15 +41,21 @@ ALL_SUBJECTS = [
 @api_view(['GET'])
 def check_score(request):
     candidate_id = request.GET.get('candidate_id')
+    print("[/check/] candidate_id =", candidate_id)
+
     if not candidate_id:
+        print("❌ Thiếu candidate_id")
         return Response({'error': 'Missing candidate_id'}, status=400)
 
     result = ExamResult.objects.filter(candidate_id=candidate_id).first()
     if not result:
+        print("❌ Không tìm thấy thí sinh")
         return Response({'error': 'Student not found'}, status=404)
 
+    print("✅ Tìm thấy:", result)
     serializer = ExamResultSerializer(result)
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def report_single_subject(request):
@@ -65,12 +71,15 @@ def report_single_subject(request):
         'civic_education': 'GDCD'
     }
 
-    subject = request.GET.get('subject')
+    subject = request.GET.get('subject', '').strip().lower()
+    print("[/report/by-subject/] subject =", subject)
 
     if subject not in valid_subjects:
+        print("❌ Môn học không hợp lệ")
         return Response({'error': 'The subject does not exist'}, status=400)
 
     scores = ExamResult.objects.values_list(subject, flat=True)
+    print(f"✅ Đang xử lý {len(scores)} điểm")
 
     levels = {'>=8': 0, '6-8': 0, '4-6': 0, '<4': 0}
 
@@ -86,23 +95,33 @@ def report_single_subject(request):
         else:
             levels['<4'] += 1
 
+    print("✅ Phân bố:", levels)
     return Response({
         'subject': valid_subjects[subject],
         'levels': levels
     })
 
+
 @api_view(['GET'])
 def top_group_dynamic(request):
     group = request.query_params.get('group', 'A00').upper()
-    top_n = int(request.query_params.get('top', 10))
+    top_n_raw = request.query_params.get('top', 10)
+    print("[/top/] group =", group, "| top =", top_n_raw)
+
+    try:
+        top_n = int(top_n_raw)
+    except ValueError:
+        print("❌ Tham số top không hợp lệ")
+        return Response({'error': 'Tham số top không hợp lệ'}, status=400)
 
     if group not in SUBJECT_COMBINATIONS:
+        print("❌ Nhóm không hợp lệ")
         return Response({'error': 'Khối không hợp lệ'}, status=400)
 
     subjects = SUBJECT_COMBINATIONS[group]
     subject_filters = {f"{subj}__isnull": False for subj in subjects}
-
     students = ExamResult.objects.filter(**subject_filters)
+    print(f"✅ Có {students.count()} thí sinh đủ điểm khối {group}")
 
     ranked = []
     for s in students:
@@ -114,10 +133,12 @@ def top_group_dynamic(request):
                 **{subj: getattr(s, subj) for subj in subjects}
             })
         except TypeError:
-            continue
+            print(f"⚠️ Thiếu điểm ở thí sinh {s.candidate_id}, bỏ qua")
 
     top_students = sorted(ranked, key=lambda x: x['total_score'], reverse=True)[:top_n]
+    print(f"✅ Trả về top {len(top_students)} thí sinh")
     return Response(top_students)
+
 
 @api_view(['GET'])
 def export_excel(request):
