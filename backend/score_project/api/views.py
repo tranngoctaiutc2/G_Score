@@ -1,5 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.management import call_command
 from .models import ExamResult
 from .serializers import ExamResultSerializer
 from django.http import HttpResponse
@@ -227,3 +228,15 @@ def export_excel(request):
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     wb.save(response)
     return response
+
+@api_view(['GET'])
+def init_data(request):
+    try:
+        if ExamResult.objects.exists():
+            return Response({'message': '❎ Dữ liệu đã tồn tại. Không cần nạp lại.'})
+
+        call_command('loaddata', 'exam_data.json')
+        return Response({'message': '✅ Dữ liệu đã được nạp thành công vào PostgreSQL'})
+
+    except Exception as e:
+        return Response({'error': str(e)}, status=500)
