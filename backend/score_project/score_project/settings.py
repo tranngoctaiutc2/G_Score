@@ -135,5 +135,5 @@ MIDDLEWARE.insert(0, "corsheaders.middleware.CorsMiddleware")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://gscore.vercel.app",
+    "https://g-score-qrn7f0s9e-tranngoctaiutc2s-projects.vercel.app/",
 ]
