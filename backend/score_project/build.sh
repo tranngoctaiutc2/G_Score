@@ -3,7 +3,7 @@ set -o errexit
 
 pip install -r requirements.txt
 
-curl -L -o exam_data.json "https://drive.google.com/uc?export=download&id=1XS5bSlvcyWMP4O-62vcV2aSGSXefrPiZ"
+curl -L -o exam_data.json "https://www.dropbox.com/scl/fi/jg1zjq4sukne1ivqgan74/exam_data.json?rlkey=efhyao4hzle1okq313w5svo8d&st=7p1ejlys&dl=1"
 
 python manage.py collectstatic --no-input
 python manage.py migrate
