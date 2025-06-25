@@ -1,0 +1,79 @@
+/* Header.css */
+.main-header {
+  background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%); /* Gradient background */
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column; /* Stack title and welcome message vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: width 0.3s ease-in-out; /* Smooth transition for collapsed state */
+  color: #ffffff; /* White text */
+  animation: pulse 2s ease-in-out infinite; /* Subtle pulsing animation */
+}
+
+/* Pulsing animation for header */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow */
+  }
+  100% {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Collapsed state */
+.main-header.collapsed {
+  padding: 15px 20px; /* Reduced padding when collapsed */
+}
+
+/* Title styling */
+.title {
+  font-size: 2rem; /* Larger title for emphasis */
+  font-weight: 700; /* Bold font */
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between emoji and text */
+  text-transform: uppercase; /* Uppercase for emphasis */
+  letter-spacing: 1.5px; /* Wider letter spacing for elegance */
+  color: #ffffff; /* Pure white text */
+}
+
+/* Welcome message styling */
+.welcome-msg {
+  font-size: 1.1rem; /* Slightly larger for clarity */
+  font-weight: 400; /* Lighter weight for contrast */
+  margin-top: 10px; /* Space below title */
+  text-align: center; /* Center text */
+  color: #ffffff; /* Pure white text */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 15px 20px;
+  }
+
+  .title {
+    font-size: 1.6rem; /* Smaller title on mobile */
+  }
+
+  .welcome-msg {
+    font-size: 0.95rem; /* Smaller text on mobile */
+  }
+}
+
+/* Hover effect for title */
+.title:hover {
+  color: #e6f0fa; /* Slight color change on hover */
+  transition: color 0.2s ease;
+}
+
+/* Ensure compatibility with Bootstrap */
+.container-fluid .main-header {
+  margin: 0;
+}

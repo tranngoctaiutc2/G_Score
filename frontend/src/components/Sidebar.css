@@ -1,0 +1,145 @@
+/* Sidebar.css */
+.sidebar {
+  background: #2c3e50; /* Dark blue for modern look */
+  width: 260px; /* Default width */
+  height: 100vh; /* Full height */
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid #3498db; /* Subtle border */
+  transition: width 0.3s ease-in-out; /* Smooth collapse transition */
+  color: #ffffff; /* White text */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; /* Modern font */
+}
+
+/* Collapsed state */
+.sidebar.collapsed {
+  width: 80px; /* Narrow width when collapsed */
+}
+
+/* Sidebar header */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: #34495e; /* Slightly lighter header */
+  border-bottom: 1px solid #3498db; /* Subtle divider */
+}
+
+/* Sidebar title */
+.sidebar-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* Toggle button */
+.toggle-btn {
+  background: #3498db; /* Vibrant blue */
+  color: #ffffff; /* White icon */
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%; /* Circular button */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem; /* Icon size */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover/click */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.toggle-btn:hover {
+  background: #2980b9; /* Darker blue on hover */
+  transform: rotate(90deg); /* Rotate effect */
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 12px; /* Consistent spacing between items */
+}
+
+/* Navigation items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between icon and text */
+  padding: 12px 16px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.05rem;
+  border-radius: 8px; /* Rounded corners */
+  transition: all 0.2s ease;
+}
+
+/* Navigation text */
+.nav-text {
+  font-weight: 400;
+}
+
+/* Hover and active states */
+.nav-item:hover {
+  background: #3498db; /* Highlight on hover */
+  transform: translateX(5px); /* Subtle slide effect */
+}
+
+.nav-item.active {
+  background: #2980b9; /* Darker for active */
+  font-weight: 500;
+}
+
+/* Collapsed state for nav items */
+.sidebar.collapsed .nav-item {
+  justify-content: center; /* Center icons */
+  padding: 12px;
+}
+
+/* Hide text when collapsed */
+.sidebar.collapsed .nav-text,
+.sidebar.collapsed .sidebar-title {
+  display: none;
+}
+
+/* Icon styling */
+.nav-item i {
+  font-size: 1.2rem; /* Consistent icon size */
+  width: 24px; /* Fixed width for alignment */
+  text-align: center;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 220px; /* Smaller on mobile */
+  }
+
+  .sidebar.collapsed {
+    width: 70px;
+  }
+
+  .sidebar-title {
+    font-size: 1.2rem;
+  }
+
+  .nav-item {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
+
+  .toggle-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+}
+
+/* Ensure compatibility with Bootstrap */
+.container-fluid .sidebar {
+  margin: 0;
+}
