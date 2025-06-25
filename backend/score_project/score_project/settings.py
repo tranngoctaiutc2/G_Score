@@ -131,10 +131,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-INSTALLED_APPS += ["corsheaders"]
 MIDDLEWARE.insert(0, "corsheaders.middleware.CorsMiddleware")
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://gscore-frontend.vercel.app",
+    "https://gscore.vercel.app",
 ]
