@@ -91,8 +91,8 @@ Frontend chạy ở [http://localhost:3000](http://localhost:3000)
 
 ## 📦 Triển khai
 
-* Backend: Railway, Heroku, Render
-* Frontend: Vercel, Netlify
+* Backend: Render - [Triển khai giao diện](https://g-score-qrn7f0s9e-tranngoctaiutc2s-projects.vercel.app/)
+* Frontend: Verce - [Triển khai xử lý](https://g-score-usot.onrender.com)
 
 ---
 
